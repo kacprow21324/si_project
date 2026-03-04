@@ -1,5 +1,8 @@
 # Dividend Portfolio Optimizer (Capital Budgeting)
 
+## Autor
+Kacper Woszczyło 21324
+
 ## Opis Projektu
 Projekt to system optymalizacji portfela inwestycyjnego, będący praktyczną implementacją wielowymiarowego problemu plecakowego (Multi-dimensional 0-1 Knapsack Problem). Celem algorytmu jest wybór optymalnego zestawu pakietów akcji spółek dywidendowych z indeksu S&P 500, aby zmaksymalizować roczny dochód pasywny przy zachowaniu określonego profilu ryzyka.
 
