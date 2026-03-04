@@ -1,18 +1,32 @@
-Autor: Kacper Woszczyło 21324
+# Dividend Portfolio Optimizer (Capital Budgeting)
 
-System wspomagania decyzji inwestycyjnych, który rozwiązuje problem optymalizacji portfela dywidendowego przy użyciu algorytmów kombinatorycznych. Aplikacja traktuje budowanie portfela akcyjnego jako rozszerzoną wersję 0-1 Knapsack Problem (Problemu Plecakowego), gdzie celem jest maksymalizacja pasywnego dochodu z dywidend przy zachowaniu ścisłych ograniczeń budżetowych i reguł zarządzania ryzykiem.
+## Opis Projektu
+Projekt to system optymalizacji portfela inwestycyjnego, będący praktyczną implementacją wielowymiarowego problemu plecakowego (Multi-dimensional 0-1 Knapsack Problem). Celem algorytmu jest wybór optymalnego zestawu pakietów akcji spółek dywidendowych z indeksu S&P 500, aby zmaksymalizować roczny dochód pasywny przy zachowaniu określonego profilu ryzyka.
 
-System operuje na rzeczywistych danych historycznych spółek z indeksu S&P 500 (np. pobranych z platformy Kaggle).
-Logika Biznesowa i Ograniczenia
+## Logika Biznesowa
+System symuluje realne warunki giełdowe – akcje kupowane są w tzw. paczkach (np. po 100 sztuk). 
 
-W przeciwieństwie do teoretycznych modeli finansowych zakładających możliwość kupna ułamków akcji, ten projekt symuluje realne środowisko brokerskie, w którym akcje kupuje się w tzw. paczkach (lotach), np. po 100 sztuk.
+* **Pojemność plecaka (Budżet):** Maksymalny kapitał początkowy przeznaczony na inwestycję (np. 100 000 USD).
+* **Waga przedmiotu (Koszt):** Cena zakupu całego pakietu akcji danej spółki.
+* **Wartość przedmiotu (Zysk):** Szacowana roczna wartość dywidendy wypłacona z tego pakietu.
 
-    Pojemność "Plecaka" (Budżet): Sztywny limit kapitału początkowego (np. 100 000 PLN ).
 
-    Waga Przedmiotu (Koszt Inwestycji): Cena zakupu pełnej paczki akcji danej spółki.
 
-    Wartość Przedmiotu (Zysk): Szacowana roczna wartość wypłaconej dywidendy z danej paczki akcji.
+## Ograniczenia i Dywersyfikacja
+Klasyczny problem plecakowy został tutaj rozszerzony o dodatkowe reguły zarządzania ryzykiem:
 
-Ograniczenia Dywersyfikacyjne (Hard Constraints)
+* **Limit budżetu:** Suma kosztów wybranych pakietów nie może przekroczyć kapitału początkowego.
+* **Limit sektorowy:** Aby uniknąć przeładowania portfela jedną branżą, wprowadzono twarde ograniczenie (np. portfel może zawierać maksymalnie 3 pakiety akcji ze spółek sektora "Technology" oraz maksymalnie 2 z sektora "Energy").
+* **Zasada 0-1:** Dany pakiet akcji z listy można kupić w całości (1) lub odrzucić (0).
 
-Aby zapobiec wygenerowaniu portfela o zbyt wysokim ryzyku (np. złożonego w 100% z jednej branży), wprowadzono dodatkowe ograniczenia kategoryjne. System nie pozwoli na zakup więcej niż określonej liczby paczek z jednego sektora (np. maksymalnie 3 pakiety akcji z sektora technologicznego).
+## Podejście Algorytmiczne
+Z uwagi na dodatkowe ograniczenia kategoryjne (sektory), problem rozwiązano z wykorzystaniem **Integer Linear Programming (ILP)**. Funkcja celu maksymalizuje sumę dywidend, podczas gdy solver dba o to, by żadne z równań budżetowych i sektorowych nie zostało złamane.
+
+## Struktura Danych Wejściowych
+Algorytm przyjmuje zbiór danych historycznych (np. w formacie `.csv` pobranych z platformy Kaggle) o następującej strukturze:
+
+| Ticker | Sector | Lot Cost (Weight) | Annual Lot Dividend (Value) |
+| :--- | :--- | :--- | :--- |
+| AAPL | Technology | $17,000 | $96.00 |
+| KO | Consumer | $6,000 | $184.00 |
+| CVX | Energy | $15,000 | $604.00 |
