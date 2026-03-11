@@ -1,35 +1,50 @@
-# Dividend Portfolio Optimizer (Capital Budgeting)
+# Dividend Portfolio Optimizer
 
-## Autor
-Kacper Woszczyło 21324
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![PyQt5](https://img.shields.io/badge/PyQt5-5.15+-41CD52?style=for-the-badge&logo=qt&logoColor=white)
+![CSV](https://img.shields.io/badge/Data-CSV-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
+**Autor:** Kacper Woszczyło 21324
 
 ## Opis Projektu
-Projekt to system optymalizacji portfela inwestycyjnego, będący praktyczną implementacją wielowymiarowego problemu plecakowego (Multi-dimensional 0-1 Knapsack Problem). Celem algorytmu jest wybór optymalnego zestawu pakietów akcji spółek dywidendowych z indeksu S&P 500, aby zmaksymalizować roczny dochód pasywny przy zachowaniu określonego profilu ryzyka.
+
+System optymalizacji portfela inwestycyjnego wykorzystujący algorytm do rozwiązania wielowymiarowego problemu plecakowego (Multi-dimensional 0-1 Knapsack Problem). Celem jest maksymalizacja rocznego dochodu z dywidend przy zachowaniu ograniczeń budżetowych i dywersyfikacji sektorowej.
 
 ## Logika Biznesowa
-System symuluje realne warunki giełdowe – akcje kupowane są w tzw. paczkach (np. po 100 sztuk). 
 
-* **Pojemność plecaka (Budżet):** Maksymalny kapitał początkowy przeznaczony na inwestycję (np. 100 000 USD).
-* **Waga przedmiotu (Koszt):** Cena zakupu całego pakietu akcji danej spółki.
-* **Wartość przedmiotu (Zysk):** Szacowana roczna wartość dywidendy wypłacona z tego pakietu.
+System symuluje realne warunki inwestycyjne na giełdzie:
 
-
+* **Budżet (Pojemność plecaka):** Maksymalny kapitał początkowy (np. $100,000)
+* **Koszt (Waga przedmiotu):** Cena zakupu pakietu akcji (lot)
+* **Dywidenda (Wartość przedmiotu):** Szacowana roczna dywidenda z pakietu
+* **Zasada 0-1:** Pakiet można kupić w całości (1) lub odrzucić (0)
 
 ## Ograniczenia i Dywersyfikacja
-Klasyczny problem plecakowy został tutaj rozszerzony o dodatkowe reguły zarządzania ryzykiem:
 
-* **Limit budżetu:** Suma kosztów wybranych pakietów nie może przekroczyć kapitału początkowego.
-* **Limit sektorowy:** Aby uniknąć przeładowania portfela jedną branżą, wprowadzono twarde ograniczenie (np. portfel może zawierać maksymalnie 3 pakiety akcji ze spółek sektora "Technology" oraz maksymalnie 2 z sektora "Energy").
-* **Zasada 0-1:** Dany pakiet akcji z listy można kupić w całości (1) lub odrzucić (0).
+* **Limit budżetu:** Suma kosztów ≤ kapitał początkowy
+* **Limity sektorowe:** Maksymalna liczba pakietów na sektor (np. Technology: 3, Energy: 2)
+* **Dywersyfikacja:** Automatyczna kontrola ryzyka przez ograniczenia sektorowe
 
-## Podejście Algorytmiczne
-Z uwagi na dodatkowe ograniczenia kategoryjne (sektory), problem rozwiązano z wykorzystaniem **Integer Linear Programming (ILP)**. Funkcja celu maksymalizuje sumę dywidend, podczas gdy solver dba o to, by żadne z równań budżetowych i sektorowych nie zostało złamane.
+## Struktura Projektu
 
-## Struktura Danych Wejściowych
-Algorytm przyjmuje zbiór danych historycznych (np. w formacie `.csv` pobranych z platformy Kaggle) o następującej strukturze:
+```
+si_project/
+├── database.py           # Ładowanie danych z CSV
+├── config.py            # Inicjalizacja parametrów (HMS, HMCR, PAR, n)
+├── random_solution.py   # Generator losowych rozwiązań
+├── harmony_search.py    # Implementacja algorytmu Harmony Search
+├── gui_app.py          # Aplikacja desktopowa (PyQt5)
+├── stock_data.csv      # Baza danych akcji (10000 rekordów)
+└── generate_data.py    # Generator danych testowych
+```
 
-| Ticker | Sector | Lot Cost (Weight) | Annual Lot Dividend (Value) |
-| :--- | :--- | :--- | :--- |
-| AAPL | Technology | $17,000 | $96.00 |
-| KO | Consumer | $6,000 | $184.00 |
-| CVX | Energy | $15,000 | $604.00 |
+## Dane Wejściowe
+
+Format danych CSV (10,000 akcji):
+
+| Ticker | Sector | Share_Price | Lot_Size | Lot_Cost | Annual_Lot_Dividend | Dividend_Yield |
+|--------|--------|-------------|----------|----------|---------------------|----------------|
+| DDRA | Consumer Cyclical | 70.78 | 100 | 7,078 | 150.85 | 2.13% |
+| CCS | Consumer Defensive | 239.59 | 100 | 23,959 | 424.94 | 1.77% |
+| EAZO | Financials | 53.05 | 100 | 5,305 | 176.38 | 3.32% |
