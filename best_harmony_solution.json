@@ -1,0 +1,116 @@
+{
+  "generated_at": "2026-03-23T11:21:10",
+  "algorithm": "Harmony Search",
+  "parameters": {
+    "budget": 100000,
+    "HMS": 10,
+    "HMCR": 0.7,
+    "PAR": 0.3,
+    "iterations": 100,
+    "seed": 42
+  },
+  "best_solution": {
+    "fitness_annual_dividend": 4058.0299999999997,
+    "total_cost": 99515.0,
+    "num_stocks": 10,
+    "sector_counts": {
+      "Financials": 3,
+      "Energy": 2,
+      "Real Estate": 2,
+      "Utilities": 1,
+      "Consumer Cyclical": 2
+    },
+    "stocks": [
+      {
+        "ticker": "VEEK",
+        "sector": "Financials",
+        "share_price": 66.9,
+        "lot_size": 100,
+        "lot_cost": 6690.0,
+        "annual_lot_dividend": 315.71,
+        "dividend_yield": 4.7191
+      },
+      {
+        "ticker": "FAV",
+        "sector": "Energy",
+        "share_price": 172.78,
+        "lot_size": 100,
+        "lot_cost": 17278.0,
+        "annual_lot_dividend": 989.98,
+        "dividend_yield": 5.7297
+      },
+      {
+        "ticker": "OWFYF",
+        "sector": "Financials",
+        "share_price": 51.55,
+        "lot_size": 100,
+        "lot_cost": 5155.0,
+        "annual_lot_dividend": 199.6,
+        "dividend_yield": 3.872
+      },
+      {
+        "ticker": "PRWL",
+        "sector": "Real Estate",
+        "share_price": 62.44,
+        "lot_size": 100,
+        "lot_cost": 6244.0,
+        "annual_lot_dividend": 341.85,
+        "dividend_yield": 5.4749
+      },
+      {
+        "ticker": "NGSN",
+        "sector": "Utilities",
+        "share_price": 70.87,
+        "lot_size": 100,
+        "lot_cost": 7087.0,
+        "annual_lot_dividend": 357.94,
+        "dividend_yield": 5.0506
+      },
+      {
+        "ticker": "NZWWL",
+        "sector": "Energy",
+        "share_price": 111.96,
+        "lot_size": 100,
+        "lot_cost": 11196.0,
+        "annual_lot_dividend": 444.69,
+        "dividend_yield": 3.9718
+      },
+      {
+        "ticker": "PJBSW",
+        "sector": "Financials",
+        "share_price": 110.25,
+        "lot_size": 100,
+        "lot_cost": 11025.0,
+        "annual_lot_dividend": 463.59,
+        "dividend_yield": 4.2049
+      },
+      {
+        "ticker": "WXFI",
+        "sector": "Consumer Cyclical",
+        "share_price": 70.0,
+        "lot_size": 100,
+        "lot_cost": 7000.0,
+        "annual_lot_dividend": 123.92,
+        "dividend_yield": 1.7703
+      },
+      {
+        "ticker": "TRUQX",
+        "sector": "Consumer Cyclical",
+        "share_price": 262.85,
+        "lot_size": 100,
+        "lot_cost": 26285.0,
+        "annual_lot_dividend": 714.9,
+        "dividend_yield": 2.7198
+      },
+      {
+        "ticker": "XZZP",
+        "sector": "Real Estate",
+        "share_price": 15.55,
+        "lot_size": 100,
+        "lot_cost": 1555.0,
+        "annual_lot_dividend": 105.85,
+        "dividend_yield": 6.8072
+      }
+    ]
+  }
+}
