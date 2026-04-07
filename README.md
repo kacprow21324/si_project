@@ -1,50 +1,40 @@
-# Dividend Portfolio Optimizer
-
-![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![PyQt5](https://img.shields.io/badge/PyQt5-5.15+-41CD52?style=for-the-badge&logo=qt&logoColor=white)
-![CSV](https://img.shields.io/badge/Data-CSV-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-
+# Optymalizator Portfela Dywidendowego - Harmony Search
 **Autor:** Kacper Woszczyło 21324
 
-## Opis Projektu
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![PyQt5](https://img.shields.io/badge/pyqt5-41CD52?style=for-the-badge&logo=qt&logoColor=white)
+![CSV](https://img.shields.io/badge/csv-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white)
 
-System optymalizacji portfela inwestycyjnego wykorzystujący algorytm do rozwiązania wielowymiarowego problemu plecakowego (Multi-dimensional 0-1 Knapsack Problem). Celem jest maksymalizacja rocznego dochodu z dywidend przy zachowaniu ograniczeń budżetowych i dywersyfikacji sektorowej.
+![Interfejs programu](dokumentacja/plik.png)
 
-## Logika Biznesowa
+## Opis projektu
 
-System symuluje realne warunki inwestycyjne na giełdzie:
+System optymalizacji portfela inwestycyjnego rozwiązujący dyskretny problem plecakowy (0-1 Knapsack Problem) przy użyciu metaheurystycznego algorytmu Harmony Search z uwzględnieniem modyfikacji PAR (Pitch Adjusting Rate). Narzędzie respektuje ograniczenia budżetowe oraz limity sektorowe, maksymalizując roczny dochód z dywidend.
 
-* **Budżet (Pojemność plecaka):** Maksymalny kapitał początkowy (np. $100,000)
-* **Koszt (Waga przedmiotu):** Cena zakupu pakietu akcji (lot)
-* **Dywidenda (Wartość przedmiotu):** Szacowana roczna dywidenda z pakietu
-* **Zasada 0-1:** Pakiet można kupić w całości (1) lub odrzucić (0)
+## Struktura projektu
 
-## Ograniczenia i Dywersyfikacja
-
-* **Limit budżetu:** Suma kosztów ≤ kapitał początkowy
-* **Limity sektorowe:** Maksymalna liczba pakietów na sektor (np. Technology: 3, Energy: 2)
-* **Dywersyfikacja:** Automatyczna kontrola ryzyka przez ograniczenia sektorowe
-
-## Struktura Projektu
-
-```
+```text
 si_project/
-├── database.py           # Ładowanie danych z CSV
-├── config.py            # Inicjalizacja parametrów (HMS, HMCR, PAR, n)
-├── random_solution.py   # Generator losowych rozwiązań
-├── harmony_search.py    # Implementacja algorytmu Harmony Search
-├── gui_app.py          # Aplikacja desktopowa (PyQt5)
-├── stock_data.csv      # Baza danych akcji (10000 rekordów)
-└── generate_data.py    # Generator danych testowych
+├── config.py             # Inicjalizacja parametrów algorytmu (HMS, HMCR, PAR, n)
+├── database.py           # Ładowanie danych z pliku CSV
+├── generate_data.py      # Generator danych testowych
+├── gui_app.py            # Główna aplikacja okienkowa (PyQt5)
+├── harmony_search.py     # Implementacja algorytmu Harmony Search
+├── random_solution.py    # Generator losowych rozwiązań
+├── stock_data.csv        # Baza danych akcji
+└── dokumentacja/         # Dokumentacja i zasoby graficzne
 ```
 
-## Dane Wejściowe
+## Jak uruchomić
 
-Format danych CSV (10,000 akcji):
+1. Zainstaluj wymagane biblioteki:
 
-| Ticker | Sector | Share_Price | Lot_Size | Lot_Cost | Annual_Lot_Dividend | Dividend_Yield |
-|--------|--------|-------------|----------|----------|---------------------|----------------|
-| DDRA | Consumer Cyclical | 70.78 | 100 | 7,078 | 150.85 | 2.13% |
-| CCS | Consumer Defensive | 239.59 | 100 | 23,959 | 424.94 | 1.77% |
-| EAZO | Financials | 53.05 | 100 | 5,305 | 176.38 | 3.32% |
+	```
+	pip install PyQt5
+	```
+
+2. Uruchom aplikację:
+
+	```
+	python gui_app.py
+	```
